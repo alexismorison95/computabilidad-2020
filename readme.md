@@ -18,3 +18,12 @@ tales que la expresión:
     2n
 
 
+## Algoritmo 10: maximun independent-set (Conjunto independiente maximo)
+
+![alt text](https://upload.wikimedia.org/wikipedia/commons/e/ee/Mis_related_sets.png)
+
+En teoría de grafos, un conjunto independiente o estable es un conjunto de vértices en un grafo tal que ninguno de sus vértices es adyacente a otro. Es decir, es un conjunto V de vértices tal que para ningún par de ellos existe alguna arista que los conecten.
+
+### Orden computacional
+    
+    2n
