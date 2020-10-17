@@ -44,7 +44,7 @@ class Tokenizer:
 
             else:
 
-                if re.search('^[a-zA-Z_]+$', t):
+                if re.search('^[a-zA-Z0-9_]+$', t):
 
                     self.__token_types['var'] += 1
 

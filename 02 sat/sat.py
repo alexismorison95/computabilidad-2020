@@ -76,7 +76,9 @@ class Sat:
 
                 return True
 
-            if self.inc_values() > len(self.__var_list):
+            overflow = self.inc_values()
+
+            if overflow > len(self.__var_list):
 
                 print('\nExecution time ' + str(time.clock() - start) + ' seconds')
 
