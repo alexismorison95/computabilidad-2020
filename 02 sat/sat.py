@@ -5,11 +5,11 @@ class Sat:
 
     def __init__(self):
 
-        self.__dictionary = {}
+        self.__dictionary = dict()
         self.__var_list = []
         self.__values = ''
 
-    def list_to_dictionary(self, var_list):
+    def list_to_dictionary(self, var_list: list):
 
         self.__var_list = var_list
 
@@ -18,7 +18,7 @@ class Sat:
             self.__dictionary[var] = 0
             self.__values += '0'
 
-    def inc_values(self):
+    def inc_dictionary(self):
 
         size = len(self.__var_list)
 
@@ -29,7 +29,10 @@ class Sat:
         result = ''
         carry = 0
 
+        self.__dictionary = dict()
+
         for i in range(size - 1, -1, -1):
+
             r = carry
             r += 1 if x[i] == '1' else 0
             r += 1 if y[i] == '1' else 0
@@ -38,50 +41,48 @@ class Sat:
             # and among these, for r==1 and r==3 you will have result bit = 1
             # for r==2 and r==3 you will have carry = 1
 
+            self.__dictionary[self.__var_list[size - i - 1]] = int('1' if r % 2 == 1 else '0')
+
             result = ('1' if r % 2 == 1 else '0') + result
             carry = 0 if r < 2 else 1
 
         if carry != 0:
-            result = '1' + result
+            return False
 
         self.__values = result.zfill(size)
+        return True
 
-        return len(self.__values)
-
-    def inc_dictionary(self):
-
-        self.__dictionary = {}
-
-        for i in range(len(self.__values)):
-
-            self.__dictionary[self.__var_list[i]] = int(self.__values[i])
-
-    def sat_algorithm(self, expression, var_names):
+    def sat_algorithm(self, expression: str, var_names: list, verbose: bool):
 
         start = time.clock()
 
         self.list_to_dictionary(var_names)
 
-        is_valid_expression = False
+        loop_count = 0
 
-        while not is_valid_expression:
+        while True:
 
-            print('Evaluating =', self.__dictionary)
+            loop_count += 1
+
+            if verbose:
+                print('Evaluating =', self.__dictionary)
 
             eval_expression = eval(expression, self.__dictionary)
 
             if eval_expression != 0:
 
-                print('\nExecution time ' + str(time.clock() - start) + ' seconds')
+                end = time.clock() - start
+
+                if verbose:
+                    print('\nExecution time {} seconds, in {} loops'.format(end, loop_count))
 
                 return True
 
-            overflow = self.inc_values()
+            if not self.inc_dictionary():
 
-            if overflow > len(self.__var_list):
+                end = time.clock() - start
 
-                print('\nExecution time ' + str(time.clock() - start) + ' seconds')
+                if verbose:
+                    print('\nExecution time {} seconds'.format(end))
 
                 return False
-
-            self.inc_dictionary()

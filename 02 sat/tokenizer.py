@@ -3,12 +3,10 @@ import re
 
 class Tokenizer:
 
-    def __init__(self, expression):
+    def __init__(self, expression: str):
 
         self.__expression = expression
-
         self.__var_names = []
-
         self.__token_types = {
             'and': 0,
             'or': 0,
