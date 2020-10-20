@@ -12,49 +12,54 @@ class Generator:
 
     def generate(self):
 
-        sat = ''
-        global_val = []
+        if self.var_count <= self.clause_count * self.lit_clause:
 
-        while len(global_val) < self.var_count:
-
-            global_val = []
             sat = ''
+            global_val = []
 
-            for i in range(self.clause_count):
+            while len(global_val) < self.var_count:
 
-                sat += '('
-                var_list = []
+                global_val = []
+                sat = ''
 
-                for j in range(self.lit_clause):
+                for i in range(self.clause_count):
 
-                    var_to_add = self.generate_random_variable()
+                    sat += '('
+                    var_list = []
 
-                    while var_to_add in var_list:
+                    for j in range(self.lit_clause):
+
                         var_to_add = self.generate_random_variable()
 
-                    var_list.append(var_to_add)
+                        while var_to_add in var_list:
+                            var_to_add = self.generate_random_variable()
 
-                    if var_to_add not in global_val:
-                        global_val.append(var_to_add)
+                        var_list.append(var_to_add)
 
-                    if random.randint(0, 1) == 0:
+                        if var_to_add not in global_val:
+                            global_val.append(var_to_add)
 
-                        if j == self.lit_clause - 1:
-                            sat += 'not ' + var_to_add
+                        if random.randint(0, 1) == 0:
+
+                            if j == self.lit_clause - 1:
+                                sat += 'not ' + var_to_add
+                            else:
+                                sat += 'not ' + var_to_add + ' or '
                         else:
-                            sat += 'not ' + var_to_add + ' or '
+                            if j == self.lit_clause - 1:
+                                sat += var_to_add
+                            else:
+                                sat += var_to_add + ' or '
+
+                    if i == self.clause_count - 1:
+                        sat += ')'
                     else:
-                        if j == self.lit_clause - 1:
-                            sat += var_to_add
-                        else:
-                            sat += var_to_add + ' or '
+                        sat += ') and '
 
-                if i == self.clause_count - 1:
-                    sat += ')'
-                else:
-                    sat += ') and '
+            return sat
 
-        return sat
+        else:
+            raise RuntimeError('literals_per_clause * clause_count must have >= variable_count')
 
     def generate_random_variable(self):
 
