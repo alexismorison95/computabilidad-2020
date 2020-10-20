@@ -3,7 +3,7 @@ import re
 
 class Tokenizer:
 
-    def __init__(self, expression: str):
+    def __init__(self, expression):
 
         self.__expression = expression
         self.__var_names = []
@@ -48,5 +48,7 @@ class Tokenizer:
 
                     if t not in self.__var_names:
                         self.__var_names.append(t)
+
+        self.__var_names.sort()
 
         return self.__token_types, self.__var_names
