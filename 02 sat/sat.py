@@ -22,34 +22,30 @@ class Sat:
 
         size = len(self.__var_list)
 
-        # Normalize lengths
-        x = self.__values.zfill(size)
-        y = '1'.zfill(size)
-
-        result = ''
         carry = 0
+        inc = '1'.zfill(size)
+
+        dictionary = self.__dictionary
 
         self.__dictionary = dict()
 
-        for i in range(size - 1, -1, -1):
+        size -= 1
+
+        for var in self.__var_list:
 
             r = carry
-            r += 1 if x[i] == '1' else 0
-            r += 1 if y[i] == '1' else 0
+            r += 1 if dictionary[var] == 1 else 0
+            r += 1 if inc[size] == '1' else 0
 
-            # r can be 0,1,2,3 (carry + x[i] + y[i])
-            # and among these, for r==1 and r==3 you will have result bit = 1
-            # for r==2 and r==3 you will have carry = 1
+            self.__dictionary[var] = 1 if r % 2 == 1 else 0
 
-            self.__dictionary[self.__var_list[size - i - 1]] = int('1' if r % 2 == 1 else '0')
-
-            result = ('1' if r % 2 == 1 else '0') + result
             carry = 0 if r < 2 else 1
+
+            size -= 1
 
         if carry != 0:
             return False
 
-        self.__values = result.zfill(size)
         return True
 
     def sat_algorithm(self, expression: str, var_names: list, verbose: bool):
