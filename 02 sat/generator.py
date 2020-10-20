@@ -17,10 +17,9 @@ class Generator:
             sat = ''
             global_val = []
 
-            while len(global_val) < self.var_count:
+            is_valid_expression = False
 
-                global_val = []
-                sat = ''
+            while not is_valid_expression:
 
                 for i in range(self.clause_count):
 
@@ -40,26 +39,22 @@ class Generator:
                             global_val.append(var_to_add)
 
                         if random.randint(0, 1) == 0:
-
-                            if j == self.lit_clause - 1:
-                                sat += 'not ' + var_to_add
-                            else:
-                                sat += 'not ' + var_to_add + ' or '
+                            sat += 'not ' + var_to_add if j == self.lit_clause - 1 else 'not ' + var_to_add + ' or '
                         else:
-                            if j == self.lit_clause - 1:
-                                sat += var_to_add
-                            else:
-                                sat += var_to_add + ' or '
+                            sat += var_to_add if j == self.lit_clause - 1 else var_to_add + ' or '
 
-                    if i == self.clause_count - 1:
-                        sat += ')'
-                    else:
-                        sat += ') and '
+                    sat += ')' if i == self.clause_count - 1 else ') and '
+
+                if len(global_val) == self.var_count:
+                    is_valid_expression = True
+                else:
+                    sat = ''
+                    global_val = []
 
             return sat
 
         else:
-            raise RuntimeError('literals_per_clause * clause_count must have >= variable_count')
+            raise RuntimeError('literals_per_clause * clause_count must be >= variable_count')
 
     def generate_random_variable(self):
 
