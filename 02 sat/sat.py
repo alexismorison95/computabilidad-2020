@@ -79,6 +79,6 @@ class Sat:
                 end = time.clock() - start
 
                 if verbose:
-                    print('\nExecution time {} seconds'.format(end))
+                    print('\nExecution time {} seconds, in {} loops'.format(end, loop_count))
 
                 return False
