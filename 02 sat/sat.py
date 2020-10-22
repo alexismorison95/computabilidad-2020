@@ -25,16 +25,12 @@ class Sat:
         carry = 0
         inc = '1'.zfill(size)
 
-        dictionary = self.__dictionary
-
-        self.__dictionary = dict()
-
         size -= 1
 
-        for var in self.__var_list:
+        for var in self.__dictionary:
 
             r = carry
-            r += 1 if dictionary[var] == 1 else 0
+            r += 1 if self.__dictionary[var] == 1 else 0
             r += 1 if inc[size] == '1' else 0
 
             self.__dictionary[var] = 1 if r % 2 == 1 else 0
@@ -60,10 +56,11 @@ class Sat:
 
             loop_count += 1
 
-            if verbose:
-                print('Evaluating =', self.__dictionary)
+            dictionary = self.__dictionary.copy()
+            eval_expression = eval(expression, dictionary)
 
-            eval_expression = eval(expression, self.__dictionary)
+            if verbose:
+                print('Evaluating = {} - Result: {}'.format(self.__dictionary, bool(eval_expression)))
 
             if eval_expression != 0:
 
@@ -72,7 +69,7 @@ class Sat:
                 if verbose:
                     print('\nExecution time {} seconds, in {} loops'.format(end, loop_count))
 
-                return True
+                return True, self.__dictionary
 
             if not self.inc_dictionary():
 
@@ -81,4 +78,4 @@ class Sat:
                 if verbose:
                     print('\nExecution time {} seconds, in {} loops'.format(end, loop_count))
 
-                return False
+                return False, None
