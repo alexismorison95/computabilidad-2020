@@ -7,16 +7,13 @@ class Sat:
 
         self.__dictionary = dict()
         self.__var_list = []
-        self.__values = ''
 
     def list_to_dictionary(self, var_list: list):
 
         self.__var_list = var_list
 
         for var in self.__var_list:
-
             self.__dictionary[var] = 0
-            self.__values += '0'
 
     def inc_dictionary(self):
 
@@ -60,7 +57,7 @@ class Sat:
             eval_expression = eval(expression, dictionary)
 
             if verbose:
-                print('Evaluating = {} - Result: {}'.format(self.__dictionary, bool(eval_expression)))
+                print('Evaluating = {}'.format(self.__dictionary))
 
             if eval_expression != 0:
 
