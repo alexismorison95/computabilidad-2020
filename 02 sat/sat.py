@@ -9,6 +9,13 @@ class Sat:
         self.__var_list = []
 
     def list_to_dictionary(self, var_list: list):
+        """Convierte una lista de variables a un diccionario o hash.
+
+        Parameters
+        ----------
+        var_list : List
+            Lista que contiene las variables en formato str
+        """
 
         self.__var_list = var_list
 
@@ -16,6 +23,15 @@ class Sat:
             self.__dictionary[var] = 0
 
     def inc_dictionary(self):
+        """Incrementa el diccionario para poder probar los distintos valores de
+        las variables.
+
+        Returns
+        ----------
+        Boolean
+            Valor booleano que indica si se pudo incrementar el diccionario (True),
+            o si hubo desbordamiento (False)
+        """
 
         size = len(self.__var_list)
 
@@ -42,6 +58,30 @@ class Sat:
         return True
 
     def sat_algorithm(self, expression: str, var_names: list, verbose: bool):
+        """Implementacion de un algoritmo secuencial de orden computacional 2^n para el
+        problema SAT (satisfacibilidad booleana), ya sea para expresiones en FNC, FND u otra forma.
+
+        Parameters
+        ----------
+        expression : str
+            Cadena de texto que representa la expresion a evaluar
+
+        var_names : List
+            Lista que contiene las variables en formato str
+
+        verbose : bool
+            Valor booleano que indica si se quiere hacer un reporte 
+            de las operaciones del algoritmo
+        
+        Returns
+        ----------
+        Boolean
+            Valor booleano que indica si se pudo satisfacer la expresion
+
+        Dict | None
+            Diccionario que muestra los valores de cada variable de la 
+            expresion en caso de que la misma sea verdad, sino retorna None
+        """
 
         start = time.clock()
 
