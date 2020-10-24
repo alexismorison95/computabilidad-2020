@@ -27,10 +27,12 @@
     mis.set_incidence_matrix(my_matrix)
     ```
 
-* Graficar grafo
+* Graficar grafo y el grafo con mis
 
     ```python
     mis.plot_graph()
+
+    mis.plot_graph_with_mis()
     ```
 
 * Calcular el conjunto independiente maximo

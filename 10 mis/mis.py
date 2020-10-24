@@ -1,7 +1,8 @@
-import networkx
+import networkx as nx
 from networkx.algorithms.approximation import independent_set
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import cm
 
 
 class Mis:
@@ -46,19 +47,48 @@ class Mis:
     
     def plot_graph(self):
 
-        self.temp_graph = networkx.Graph()
-
+        self.temp_graph = nx.Graph()
         self.matrix_to_edges()
-
         self.temp_graph.add_edges_from(self.__edge_list)
 
-        labels = range(self.__nodes)
+        nx.draw_networkx(self.temp_graph, node_color="dodgerblue")
 
-        networkx.draw_networkx(self.temp_graph, with_labels=labels)
+        plt.axis("off")
+        plt.show()
+    
+    def plot_graph_with_mis(self):
+
+        self.temp_graph = nx.Graph()
+        self.matrix_to_edges()
+        self.temp_graph.add_edges_from(self.__edge_list)
+
+        mis = self.maximum_independent_set()
+
+        all_nodes = np.arange(self.__nodes)
+        mis_nodes = []
+        not_mis_nodes = []
+        map_nodes = []
+
+        for node in mis:
+            mis_nodes.append(node)
+
+        for node in all_nodes:
+            if node not in mis_nodes:
+                not_mis_nodes.append(node)
+
+        for node in self.temp_graph:
+            if node in mis_nodes:
+                map_nodes.append('dodgerblue')
+            else:
+                map_nodes.append('skyblue')
+
+        nx.draw_networkx(self.temp_graph, node_color=map_nodes) 
 
         plt.axis("off")
         plt.show()
     
     def maximum_independent_set(self):
+        
+        "TODO: Tengo que hacer mi algoritmo..."
 
         return independent_set.maximum_independent_set(self.temp_graph)
