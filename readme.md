@@ -24,7 +24,7 @@ En teoría de la complejidad computacional, el Teorema de Cook establece lo sigu
     El Problema de satisfacibilidad booleana (SAT) es NP-completo. (1971)
 
 
-## Algoritmo 10: maximun independent-set (Conjunto independiente maximo)
+## Algoritmo 10: maximum independent-set (Conjunto independiente maximo)
 
 ![Conjunto independiente](https://upload.wikimedia.org/wikipedia/commons/e/ee/Mis_related_sets.png)
 
