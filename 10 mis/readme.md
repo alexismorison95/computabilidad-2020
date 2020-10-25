@@ -27,18 +27,30 @@
     mis.set_incidence_matrix(my_matrix)
     ```
 
-* Graficar grafo y el grafo con mis
+* Opcion 3: Crear una lista de conexiones y setearla
 
     ```python
-    mis.plot_graph()
+    my_edge_list = [(0, 1), (1, 2), (1, 3), (2, 3), (4, 5), (5, 2)]
 
-    mis.plot_graph_with_mis()
+    mis.set_edge_list(my_edge_list)
+    ```
+
+* Mostrar grafo
+
+    ```python
+    mis.graph.show_graph()
     ```
 
 * Calcular el conjunto independiente maximo
 
-    ## El algoritmo todavia no esta implementado, uso el de la biblioteca *networkx*
+    ```python
+    mis.maximum_independent_set(verbose=True)
+    ```
+
+* Graficar grafo con mis
 
     ```python
-    mis.maximum_independent_set())
+    mis.plot_graph(whit_mis=True)
     ```
+
+
