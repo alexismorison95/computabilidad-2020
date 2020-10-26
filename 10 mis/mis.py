@@ -72,13 +72,15 @@ class Mis:
         self.matrix_to_edges()
         self.graph = Graph(self.__edge_list)
     
-    def plot_graph(self, whit_mis=True):
+    def plot_graph(self, whit_mis=False):
 
         temp_graph = nx.Graph()
         temp_graph.add_edges_from(self.__edge_list)
 
         if whit_mis:
-            #self.maximum_independent_set(verbose=False)
+            self.maximum_independent_set(verbose=True)
+
+            print('\nMaximum independent set = {} \n'.format(self.mis_list))
 
             mis_nodes = []
 
