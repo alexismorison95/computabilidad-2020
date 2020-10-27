@@ -16,6 +16,8 @@ mis.set_incidence_matrix(my_matrix)
 
 #mis.random_incidence_matrix(4)
 
-print('\nMaximum independent set = {} \n'.format(mis.maximum_independent_set()))
+mis_result = mis.maximum_independent_set(True)
 
-mis.plot_graph_with_mis()
+print('\nMaximum independent set = {}\n'.format(mis_result))
+
+mis.plot_graph(whit_mis=True)

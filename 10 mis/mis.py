@@ -15,9 +15,22 @@ class Mis:
         self.__matrix = None
         self.__edge_list = []
         self.graph = None
-        self.mis_list = []
+        self.mis_list = set()
 
     def random_incidence_matrix(self, nodes_count: int):
+        """Permite generar una matriz de incidencia aleatoria, para poder generar
+        un grafo.
+
+        Parameters
+        ----------
+        nodes_count : Int
+            Cantidad de nodos del grafo
+        
+        Returns
+        ----------
+        Numpy Array
+            Matriz de incidencia en formato Numpy
+        """
 
         self.__nodes = nodes_count
 
@@ -28,6 +41,13 @@ class Mis:
         return self.__matrix
     
     def set_incidence_matrix(self, matrix: np.ndarray):
+        """Permite generar un grafo a partir de una matriz de incidencia.
+
+        Parameters
+        ----------
+        matrix : Numpy Array
+            Matriz de incidencia
+        """
 
         self.__matrix = matrix
         
@@ -38,6 +58,13 @@ class Mis:
         self.generate_graph()
     
     def set_edge_list(self, edge_list):
+        """Permite generar un grafo a partir de una lista de conexiones.
+
+        Parameters
+        ----------
+        edge_list : List
+            Lista de caminos en forma de tuplas [(0, 1), (1, 2)]
+        """
 
         self.__edge_list = edge_list
 
@@ -53,6 +80,8 @@ class Mis:
         self.graph = Graph(self.__edge_list)
     
     def matrix_to_edges(self):
+        """Permite convertir una matriz de incidencia en una lista de caminos.
+        """
 
         self.__edge_list.clear()
         
@@ -68,34 +97,45 @@ class Mis:
         return self.__edge_list
     
     def generate_graph(self):
+        """Genera la lista de caminos y el grafo a partir de este.
+        """
 
         self.matrix_to_edges()
         self.graph = Graph(self.__edge_list)
     
     def plot_graph(self, whit_mis=False):
+        """Permite graficar el grafo.
+
+        Parameters
+        ----------
+        whit_mis : Boolean
+            Por defecto en False, solo grafica el grafo. Si es True, calcula
+            el conjunto independiente maximo y grafica el grafo con este
+        """
 
         temp_graph = nx.Graph()
         temp_graph.add_edges_from(self.__edge_list)
 
         if whit_mis:
-            self.maximum_independent_set(verbose=True)
 
-            print('\nMaximum independent set = {} \n'.format(self.mis_list))
+            if len(self.mis_list) > 0:
 
-            mis_nodes = []
+                mis_nodes = []
 
-            for node in self.mis_list:
-                mis_nodes.append(node)
-            
-            map_nodes = []
+                for node in self.mis_list:
+                    mis_nodes.append(node)
+                
+                map_nodes = []
 
-            for node in temp_graph:
-                if node in mis_nodes:
-                    map_nodes.append('dodgerblue')
-                else:
-                    map_nodes.append('lightskyblue')
+                for node in temp_graph:
+                    if node in mis_nodes:
+                        map_nodes.append('dodgerblue')
+                    else:
+                        map_nodes.append('lightskyblue')
 
-            nx.draw_networkx(temp_graph, node_color=map_nodes)
+                nx.draw_networkx(temp_graph, node_color=map_nodes)
+            else:
+                raise KeyError("Primero debe calcular el conjunto independiente maximo")
         
         else:
             nx.draw_networkx(temp_graph, node_color="dodgerblue")
@@ -104,6 +144,13 @@ class Mis:
         plt.show()
     
     def maximum_independent_set(self, verbose: bool):
+        """Algoritmo que calcula el conjunto independiente maximo.
+
+        Parameters
+        ----------
+        verbose : Boolean
+            Si True, emprime un reporte de las operaciones
+        """
 
         self.mis_list.clear()
 
@@ -130,7 +177,7 @@ class Mis:
                 print('Evaluating = {}'.format(temp_mis))
 
             if len(temp_mis) > len(self.mis_list):
-                self.mis_list = temp_mis
+                self.mis_list = {node for node in temp_mis}
 
         end = time.clock() - start
 
