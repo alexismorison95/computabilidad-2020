@@ -16,6 +16,8 @@ class Mis:
         self.__edge_list = []
         self.graph = None
         self.mis_list = set()
+    
+
 
     def random_incidence_matrix(self, nodes_count: int):
         """Permite generar una matriz de incidencia aleatoria, para poder generar
@@ -40,6 +42,8 @@ class Mis:
 
         return self.__matrix
     
+
+
     def set_incidence_matrix(self, matrix: np.ndarray):
         """Permite generar un grafo a partir de una matriz de incidencia.
 
@@ -57,6 +61,8 @@ class Mis:
 
         self.generate_graph()
     
+
+
     def set_edge_list(self, edge_list):
         """Permite generar un grafo a partir de una lista de conexiones.
 
@@ -79,6 +85,8 @@ class Mis:
         
         self.graph = Graph(self.__edge_list)
     
+
+
     def matrix_to_edges(self):
         """Permite convertir una matriz de incidencia en una lista de caminos.
         """
@@ -96,6 +104,8 @@ class Mis:
 
         return self.__edge_list
     
+
+
     def generate_graph(self):
         """Genera la lista de caminos y el grafo a partir de este.
         """
@@ -103,6 +113,8 @@ class Mis:
         self.matrix_to_edges()
         self.graph = Graph(self.__edge_list)
     
+
+
     def plot_graph(self, whit_mis=False):
         """Permite graficar el grafo.
 
@@ -135,14 +147,16 @@ class Mis:
 
                 nx.draw_networkx(temp_graph, node_color=map_nodes)
             else:
-                raise KeyError("Primero debe calcular el conjunto independiente maximo")
+                raise ValueError("Primero debe calcular el conjunto independiente maximo")
         
         else:
             nx.draw_networkx(temp_graph, node_color="dodgerblue")
 
         plt.axis("off")
         plt.show()
-    
+
+
+
     def maximum_independent_set(self, verbose: bool):
         """Algoritmo que calcula el conjunto independiente maximo.
 

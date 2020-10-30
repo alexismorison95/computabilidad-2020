@@ -8,6 +8,8 @@ class Sat:
         self.__dictionary = dict()
         self.__var_list = []
 
+
+
     def list_to_dictionary(self, var_list: list):
         """Convierte una lista de variables a un diccionario o hash.
 
@@ -21,6 +23,8 @@ class Sat:
 
         for var in self.__var_list:
             self.__dictionary[var] = 0
+
+
 
     def inc_dictionary(self):
         """Incrementa el diccionario para poder probar los distintos valores de
@@ -56,6 +60,8 @@ class Sat:
             return False
 
         return True
+
+
 
     def sat_algorithm(self, expression: str, var_names: list, verbose: bool):
         """Implementacion de un algoritmo secuencial de orden computacional 2^n para el

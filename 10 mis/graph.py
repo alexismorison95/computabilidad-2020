@@ -8,6 +8,8 @@ class Graph:
         self.__graph = dict()
         self.edges_to_graph(edges_list)
     
+
+
     def edges_to_graph(self, edges):
         """Convierte una lista de de conexiones en un grafo.
 
@@ -23,6 +25,8 @@ class Graph:
         
         self.remove_duplicates()
     
+
+
     def add_conection(self, node1, node2):
         """Permite agregar una conexion entre dos nodos de un grafo.
 
@@ -38,6 +42,8 @@ class Graph:
         self.__graph.setdefault(node1, []).append(node2)
         self.__graph.setdefault(node2, []).append(node1)
     
+
+
     def remove_duplicates(self):
         """Remueve las conexiones duplicadas del grafo, hay que optimizar add_conection().
         """
@@ -46,6 +52,8 @@ class Graph:
 
             self.__graph[node] = list(set(conections))
     
+
+
     def remove_neighbours(self, node):
         """Permite remover todos los nodos vecinos de un grafo.
 
@@ -63,6 +71,8 @@ class Graph:
         
         self.__graph.pop(node)
 
+
+
     def is_empty(self):
         """Permite saber si el grafo esta vacio, osea no hay ningun nodo.
 
@@ -75,8 +85,10 @@ class Graph:
 
         return True if len(self.__graph) == 0 else False
     
+
+
     def get_node(self):
-        """Permite obtener el primer nodo que haya en el grafo.
+        """Permite obtener un nodo del grafo.
 
         Returns
         ----------
@@ -86,6 +98,8 @@ class Graph:
 
         return list(self.__graph.keys())[0]
     
+
+
     def show_graph(self):
         """Permite representar el grafo para verlo por consola.
         """

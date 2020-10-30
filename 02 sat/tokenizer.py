@@ -16,6 +16,8 @@ class Tokenizer:
             'var': 0
         }
 
+
+
     def tokenize(self):
 
         reg = re.compile(r'(\band\b|\bor\b|\bnot\b|\(|\))')
