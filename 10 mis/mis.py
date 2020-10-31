@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from graph import Graph
 import copy
 import time
+import random
 
 
 class Mis:
@@ -42,6 +43,25 @@ class Mis:
 
         return self.__matrix
     
+
+
+    def random_matrix_with_porc(self, nodes_count, prob):
+
+        self.__nodes = nodes_count
+
+        self.__matrix = np.zeros((self.__nodes, self.__nodes), dtype=np.int)
+
+        for i in range(self.__nodes):
+            for j in range(self.__nodes):
+                
+                if random.random() < prob:
+
+                    self.__matrix[i][j] = 1
+        
+        self.generate_graph()
+
+        return self.__matrix
+
 
 
     def set_incidence_matrix(self, matrix: np.ndarray):
@@ -157,45 +177,95 @@ class Mis:
 
 
 
-    def maximum_independent_set(self, verbose: bool):
+    def inc_sub_conj(self, sub_conj):
+        """Permite incrementar un vector de 0 y 1 como una suma binaria.
+
+        Parameters
+        ----------
+        sub_conj : List
+            Lista que representa a un subconjunto del grafo
+        """
+
+        size = self.__nodes
+
+        carry = 0
+        inc = '1'.zfill(size)
+
+        size -= 1
+
+        for node in range(self.__nodes):
+
+            r = carry
+            r += 1 if sub_conj[node] == 1 else 0
+            r += 1 if inc[size] == '1' else 0
+
+            sub_conj[node] = 1 if r % 2 == 1 else 0
+
+            carry = 0 if r < 2 else 1
+
+            size -= 1
+
+        if carry != 0:
+            return None
+
+        return sub_conj
+
+
+
+    def maximum_independent_set2(self, verbose: bool):
         """Algoritmo que calcula el conjunto independiente maximo.
 
         Parameters
         ----------
         verbose : Boolean
-            Si True, emprime un reporte de las operaciones
+            Si True, imprime un reporte de las operaciones
         """
+
+        sub_conj = [0]*self.__nodes
 
         self.mis_list.clear()
 
-        start_nodes = np.arange(self.__nodes)
-
         start = time.clock()
 
-        for i in start_nodes:
+        if not verbose:
+                print('Evaluating subsets...')
+
+        while sub_conj:
 
             g = copy.deepcopy(self.graph)
             temp_mis = []
-            node = i
-
-            while not g.is_empty():
-                
-                if not node:
-                    node = g.get_node()
-
-                temp_mis.append(node)
-                g.remove_neighbours(node)
-                node = None
 
             if verbose:
-                print('Evaluating = {}'.format(temp_mis))
-
+                print('Evaluating subset = {}'.format(sub_conj))
+            
+            for i in range(self.__nodes):
+                if sub_conj[i] == 1:
+                    
+                    try:
+                        g.remove_neighbours(i)
+                        temp_mis.append(i)
+                    except:
+                        pass
+            
             if len(temp_mis) > len(self.mis_list):
                 self.mis_list = {node for node in temp_mis}
 
+            # Genero otro subconjunto
+            sub_conj = self.inc_sub_conj(sub_conj)
+        
         end = time.clock() - start
+        
+        return self.mis_list, end
 
-        if verbose:
-            print('\nExecution time {} seconds'.format(end))
 
-        return self.mis_list
+
+    def save_result(self, text):
+
+        with open("results.txt", "a+") as file:
+
+            file.write(text)
+    
+
+
+    def read_result(self):
+        pass

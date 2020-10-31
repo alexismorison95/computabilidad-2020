@@ -10,13 +10,9 @@ my_matrix = np.array(
     [1, 0, 0, 0]]
 )
 
-#print(my_matrix)
-
 mis.set_incidence_matrix(my_matrix)
 
-#mis.random_incidence_matrix(4)
-
-mis_result = mis.maximum_independent_set(True)
+mis_result = mis.maximum_independent_set2(True)
 
 print('\nMaximum independent set = {}\n'.format(mis_result))
 
