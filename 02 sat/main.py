@@ -4,7 +4,7 @@ from generator import Generator
 
 if __name__ == "__main__":
 
-    expression = '(x6 or x2) and (x8 or x4) and (x1 or x5) and (x7 or x3)'
+    expression = '(a or b) and (c and not f and (a and not b))'
 
     gen = Generator(clause_count=4, literals_per_clause=2, variable_count=8, var_name='x')
 
@@ -15,9 +15,16 @@ if __name__ == "__main__":
 
     sat = Sat()
 
-    result_sat, var_values = sat.sat_algorithm(expression, var_names, verbose=True)
+    result_sat, time = sat.sat_algorithm(expression, var_names, verbose=True)
 
-    print('\nResult: Expression "{}" is {}'.format(expression, result_sat))
+    print('\nExecution time {} seconds'.format(time))
 
-    if var_values:
-        print('Variable values: {}'.format(var_values))
+    if len(result_sat) > 0:
+        print('\nExpression "{}" is True'.format(expression))
+
+        print('\nNumber of solutions is {}\n'.format(len(result_sat)))
+
+        for result in result_sat:
+
+            print(result)
+

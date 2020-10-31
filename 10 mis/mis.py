@@ -17,12 +17,7 @@ class Mis:
         self.__edge_list = []
         self.graph = None
         self.mis_list = set()
-    
 
-
-    def get_node_count(self):
-
-        return self.__nodes
 
 
     def random_incidence_matrix(self, nodes_count: int):
@@ -51,6 +46,22 @@ class Mis:
 
 
     def random_matrix_with_porc(self, nodes_count, prob):
+        """Permite generar una matriz de incidencia aleatoria con probabilidad de aristas, 
+        para poder generar un grafo.
+
+        Parameters
+        ----------
+        nodes_count : Int
+            Cantidad de nodos del grafo
+        
+        prob : Float
+            Probabilidad de generar aristas
+        
+        Returns
+        ----------
+        Numpy Array
+            Matriz de incidencia en formato Numpy
+        """
 
         self.__nodes = nodes_count
 

@@ -7,6 +7,7 @@ class Sat:
 
         self.__dictionary = dict()
         self.__var_list = []
+        self.__all_solutions = []
 
 
 
@@ -93,11 +94,7 @@ class Sat:
 
         self.list_to_dictionary(var_names)
 
-        loop_count = 0
-
         while True:
-
-            loop_count += 1
 
             dictionary = self.__dictionary.copy()
             eval_expression = eval(expression, dictionary)
@@ -107,18 +104,10 @@ class Sat:
 
             if eval_expression != 0:
 
-                end = time.clock() - start
-
-                if verbose:
-                    print('\nExecution time {} seconds, in {} loops'.format(end, loop_count))
-
-                return True, self.__dictionary
+                self.__all_solutions.append(self.__dictionary.copy())
 
             if not self.inc_dictionary():
 
                 end = time.clock() - start
 
-                if verbose:
-                    print('\nExecution time {} seconds, in {} loops'.format(end, loop_count))
-
-                return False, None
+                return self.__all_solutions, end
