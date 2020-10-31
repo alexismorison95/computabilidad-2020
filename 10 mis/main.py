@@ -12,8 +12,16 @@ my_matrix = np.array(
 
 mis.set_incidence_matrix(my_matrix)
 
-mis_result = mis.maximum_independent_set2(True)
+mis_result, time = mis.maximum_independent_set2(verbose=False)
+
+print('\nExecution time {} seconds, or {} minutes'.format(time, (time/60)))
 
 print('\nMaximum independent set = {}\n'.format(mis_result))
 
 mis.plot_graph(whit_mis=True)
+
+string = "{},{}\r".format(mis.get_node_count(), time)
+
+mis.save_result(string)
+
+mis.read_result()

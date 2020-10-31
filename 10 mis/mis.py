@@ -20,6 +20,11 @@ class Mis:
     
 
 
+    def get_node_count(self):
+
+        return self.__nodes
+
+
     def random_incidence_matrix(self, nodes_count: int):
         """Permite generar una matriz de incidencia aleatoria, para poder generar
         un grafo.
@@ -256,16 +261,3 @@ class Mis:
         end = time.clock() - start
         
         return self.mis_list, end
-
-
-
-    def save_result(self, text):
-
-        with open("results.txt", "a+") as file:
-
-            file.write(text)
-    
-
-
-    def read_result(self):
-        pass
