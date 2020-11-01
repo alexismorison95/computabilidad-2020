@@ -3,14 +3,14 @@ import pprint
 
 class Graph:
 
-    def __init__(self, edges_list):
+    def __init__(self, edges_list: list):
 
         self.__graph = dict()
         self.edges_to_graph(edges_list)
     
 
 
-    def edges_to_graph(self, edges):
+    def edges_to_graph(self, edges: list):
         """Convierte una lista de de conexiones en un grafo.
 
         Parameters
@@ -27,7 +27,7 @@ class Graph:
     
 
 
-    def add_conection(self, node1, node2):
+    def add_conection(self, node1: int, node2: int):
         """Permite agregar una conexion entre dos nodos de un grafo.
 
         Parameters
@@ -38,9 +38,11 @@ class Graph:
         node1 : Int
             Nodo de llegada
         """
-
-        self.__graph.setdefault(node1, []).append(node2)
-        self.__graph.setdefault(node2, []).append(node1)
+        if node2:
+            self.__graph.setdefault(node1, []).append(node2)
+            self.__graph.setdefault(node2, []).append(node1)
+        else:
+            self.__graph.setdefault(node1, [])
     
 
 
@@ -54,7 +56,7 @@ class Graph:
     
 
 
-    def remove_neighbours(self, node):
+    def remove_neighbours(self, node: int):
         """Permite remover todos los nodos vecinos de un grafo.
 
         Parameters
@@ -84,20 +86,7 @@ class Graph:
         """
 
         return True if len(self.__graph) == 0 else False
-    
 
-
-    def get_node(self):
-        """Permite obtener un nodo del grafo.
-
-        Returns
-        ----------
-        Int
-            Nodo
-        """
-
-        return list(self.__graph.keys())[0]
-    
 
 
     def show_graph(self):

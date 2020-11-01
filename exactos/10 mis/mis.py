@@ -1,5 +1,4 @@
 import networkx as nx
-from networkx.algorithms.approximation import independent_set
 import numpy as np
 import matplotlib.pyplot as plt
 from graph import Graph
@@ -111,16 +110,16 @@ class Mis:
         self.__edge_list = edge_list
 
         nodes_list_aux = []
-        self.__nodes = 0
 
-        for node1, _ in edge_list:
+        for x, y in edge_list:
+            nodes_list_aux.append(x)
+            if y:
+                nodes_list_aux.append(y)
 
-            if node1 not in nodes_list_aux:
-                nodes_list_aux.append(node1)
-                self.__nodes += 1
-        
+        self.__nodes = len({node for node in nodes_list_aux})
+
         self.graph = Graph(self.__edge_list)
-    
+
 
 
     def matrix_to_edges(self):
@@ -132,11 +131,17 @@ class Mis:
         for i in range(self.__nodes):
             pos = -1
 
+            conexion = False
+
             for j in self.__matrix[i]:
                 pos += 1
 
                 if j == 1 and pos != i:
                     self.__edge_list.append((i, pos))
+                    conexion = True
+            
+            if not conexion:
+                self.__edge_list.append((i, None))
 
         return self.__edge_list
     
@@ -162,7 +167,13 @@ class Mis:
         """
 
         temp_graph = nx.Graph()
-        temp_graph.add_edges_from(self.__edge_list)
+        #temp_graph.add_edges_from(self.__edge_list)
+
+        for x, y in self.__edge_list:
+            if y:
+                temp_graph.add_edge(x, y)
+            else:
+                temp_graph.add_node(x)
 
         if whit_mis:
 
