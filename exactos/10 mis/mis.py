@@ -14,7 +14,7 @@ class Mis:
         self.__nodes = 0
         self.__matrix = None
         self.__edge_list = []
-        self.graph = None
+        self.graph: Graph = None
         self.mis_list = set()
 
 
@@ -44,7 +44,7 @@ class Mis:
     
 
 
-    def random_matrix_with_porc(self, nodes_count, prob):
+    def random_matrix_with_porc(self, nodes_count: int, prob: float):
         """Permite generar una matriz de incidencia aleatoria con probabilidad de aristas, 
         para poder generar un grafo.
 
@@ -98,7 +98,7 @@ class Mis:
     
 
 
-    def set_edge_list(self, edge_list):
+    def set_edge_list(self, edge_list: list):
         """Permite generar un grafo a partir de una lista de conexiones.
 
         Parameters
@@ -204,7 +204,7 @@ class Mis:
 
 
 
-    def inc_sub_conj(self, sub_conj):
+    def inc_sub_conj(self, sub_conj: list):
         """Permite incrementar un vector de 0 y 1 como una suma binaria.
 
         Parameters
@@ -255,11 +255,11 @@ class Mis:
         start = time.clock()
 
         if not verbose:
-                print('Evaluating subsets...')
+                print('Evaluating all subset...')
 
         while sub_conj:
 
-            g = copy.deepcopy(self.graph)
+            g: Graph = copy.deepcopy(self.graph)
             temp_mis = []
 
             if verbose:

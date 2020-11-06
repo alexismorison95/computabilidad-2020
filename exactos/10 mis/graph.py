@@ -75,20 +75,6 @@ class Graph:
 
 
 
-    def is_empty(self):
-        """Permite saber si el grafo esta vacio, osea no hay ningun nodo.
-
-        Returns
-        ----------
-        Boolean
-            Valor booleano que indica si el grafo esta vacio (True),
-            o no (False)
-        """
-
-        return True if len(self.__graph) == 0 else False
-
-
-
     def show_graph(self):
         """Permite representar el grafo para verlo por consola.
         """
