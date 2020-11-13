@@ -10,10 +10,10 @@ mis.set_edge_list(my_edge_list)
 
 mis.graph.show_graph()
 
-mis_result, time = mis.maximum_independent_set2(verbose=False)
+mis_result, time = mis.maximum_independent_set(verbose=False)
 
 print('\nExecution time {} seconds, or {} minutes'.format(time, (time/60)))
 
 print('\nMaximum independent set = {}\n'.format(mis_result))
 
-#mis.plot_graph(whit_mis=True)
+mis.plot_graph(whit_mis=True)

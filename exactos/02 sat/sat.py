@@ -25,8 +25,6 @@ class Sat:
         for var in self.__var_list:
             self.__dictionary[var] = 0
 
-
-
     def inc_dictionary(self):
         """Incrementa el diccionario para poder probar los distintos valores de
         las variables.

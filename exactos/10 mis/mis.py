@@ -204,6 +204,27 @@ class Mis:
 
 
 
+    def is_overflow(self, sub_conj: list):
+        """Permite verificar si se puede incrementar un subconjunto.
+
+        Parameters
+        ----------
+        sub_conj : List
+            Lista que representa a un subconjunto del grafo
+        
+        Returns
+        ----------
+        Boolean
+            Si se puede incrementar o no
+        """
+
+        if sub_conj.count(1) == len(sub_conj):
+            return True
+        else:
+            False
+
+
+
     def inc_sub_conj(self, sub_conj: list):
         """Permite incrementar un vector de 0 y 1 como una suma binaria.
 
@@ -211,35 +232,29 @@ class Mis:
         ----------
         sub_conj : List
             Lista que representa a un subconjunto del grafo
+        
+        Returns
+        ----------
+        List or None
+            Subconjunto incrementado o None si no se puede incrementar
         """
 
-        size = self.__nodes
-
-        carry = 0
-        inc = '1'.zfill(size)
-
-        size -= 1
-
-        for node in range(self.__nodes):
-
-            r = carry
-            r += 1 if sub_conj[node] == 1 else 0
-            r += 1 if inc[size] == '1' else 0
-
-            sub_conj[node] = 1 if r % 2 == 1 else 0
-
-            carry = 0 if r < 2 else 1
-
-            size -= 1
-
-        if carry != 0:
+        if self.is_overflow(sub_conj):
             return None
+        else:
+            j = len(sub_conj) - 1
 
-        return sub_conj
+            while sub_conj[j] == 1:
+                sub_conj[j] = 0
+                j -= 1
+            
+            sub_conj[j] = 1
+
+            return sub_conj
 
 
 
-    def maximum_independent_set2(self, verbose: bool):
+    def maximum_independent_set(self, verbose: bool):
         """Algoritmo que calcula el conjunto independiente maximo.
 
         Parameters
@@ -267,7 +282,6 @@ class Mis:
             
             for i in range(self.__nodes):
                 if sub_conj[i] == 1:
-                    
                     try:
                         g.remove_neighbours(i)
                         temp_mis.append(i)
