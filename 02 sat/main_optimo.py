@@ -1,6 +1,7 @@
 from tokenizer import Tokenizer
 from sat import Sat
 from generator import Generator
+#from tools.my_tools import save_result
 
 if __name__ == "__main__":
 
@@ -15,7 +16,7 @@ if __name__ == "__main__":
 
     sat = Sat()
 
-    result_sat, time = sat.sat_algorithm(expression, var_names, verbose=True)
+    result_sat, time = sat.sat_algorithm(expression, var_names, verbose=False)
 
     print('\nExecution time {} seconds'.format(time))
 
@@ -27,4 +28,3 @@ if __name__ == "__main__":
         for result in result_sat:
 
             print(result)
-

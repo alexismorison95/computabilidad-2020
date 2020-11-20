@@ -10,7 +10,6 @@ import random
 class Mis:
 
     def __init__(self):
-
         self.__nodes = 0
         self.__matrix = None
         self.__edge_list = []
@@ -35,10 +34,9 @@ class Mis:
         """
 
         self.__nodes = nodes_count
-
         self.__matrix = np.random.randint(0, 2, (self.__nodes, self.__nodes))
 
-        self.generate_graph()
+        self.__generate_graph()
 
         return self.__matrix
     
@@ -70,10 +68,9 @@ class Mis:
             for j in range(self.__nodes):
                 
                 if random.random() < prob:
-
                     self.__matrix[i][j] = 1
         
-        self.generate_graph()
+        self.__generate_graph()
 
         return self.__matrix
 
@@ -89,12 +86,10 @@ class Mis:
         """
 
         self.__matrix = matrix
-        
         x, _ = matrix.shape
-
         self.__nodes = x
 
-        self.generate_graph()
+        self.__generate_graph()
     
 
 
@@ -108,7 +103,6 @@ class Mis:
         """
 
         self.__edge_list = edge_list
-
         nodes_list_aux = []
 
         for x, y in edge_list:
@@ -122,7 +116,7 @@ class Mis:
 
 
 
-    def matrix_to_edges(self):
+    def __matrix_to_edges(self):
         """Permite convertir una matriz de incidencia en una lista de caminos.
         """
 
@@ -130,7 +124,6 @@ class Mis:
         
         for i in range(self.__nodes):
             pos = -1
-
             conexion = False
 
             for j in self.__matrix[i]:
@@ -147,27 +140,25 @@ class Mis:
     
 
 
-    def generate_graph(self):
+    def __generate_graph(self):
         """Genera la lista de caminos y el grafo a partir de este.
         """
 
-        self.matrix_to_edges()
+        self.__matrix_to_edges()
         self.graph = Graph(self.__edge_list)
     
 
 
-    def plot_graph(self, whit_mis=False):
+    def plot_graph(self, mis_result=None):
         """Permite graficar el grafo.
 
         Parameters
         ----------
-        whit_mis : Boolean
-            Por defecto en False, solo grafica el grafo. Si es True, calcula
-            el conjunto independiente maximo y grafica el grafo con este
+        mis_result : List | Opcional
+            resultado del algoritmo maximum independent set a graficar
         """
 
         temp_graph = nx.Graph()
-        #temp_graph.add_edges_from(self.__edge_list)
 
         for x, y in self.__edge_list:
             if y:
@@ -175,27 +166,22 @@ class Mis:
             else:
                 temp_graph.add_node(x)
 
-        if whit_mis:
+        if mis_result:
 
-            if len(self.mis_list) > 0:
+            mis_nodes = []
 
-                mis_nodes = []
+            for node in mis_result:
+                mis_nodes.append(node)
+            
+            map_nodes = []
 
-                for node in self.mis_list:
-                    mis_nodes.append(node)
-                
-                map_nodes = []
+            for node in temp_graph:
+                if node in mis_nodes:
+                    map_nodes.append('dodgerblue')
+                else:
+                    map_nodes.append('lightskyblue')
 
-                for node in temp_graph:
-                    if node in mis_nodes:
-                        map_nodes.append('dodgerblue')
-                    else:
-                        map_nodes.append('lightskyblue')
-
-                nx.draw_networkx(temp_graph, node_color=map_nodes)
-            else:
-                raise ValueError("Primero debe calcular el conjunto independiente maximo")
-        
+            nx.draw_networkx(temp_graph, node_color=map_nodes)
         else:
             nx.draw_networkx(temp_graph, node_color="dodgerblue")
 
@@ -264,7 +250,6 @@ class Mis:
         """
 
         sub_conj = [0]*self.__nodes
-
         self.mis_list.clear()
 
         start = time.clock()

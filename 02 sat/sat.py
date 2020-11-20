@@ -4,8 +4,8 @@ import time
 class Sat:
 
     def __init__(self):
-
         self.__dictionary = dict()
+        self.__sub_conj = None
         self.__var_list = []
         self.__all_solutions = []
 
@@ -21,9 +21,52 @@ class Sat:
         """
 
         self.__var_list = var_list
+        self.__sub_conj = [0]*len(var_list)
 
         for var in self.__var_list:
             self.__dictionary[var] = 0
+
+
+
+    def is_overflow(self):
+        """Permite verificar si se puede incrementar un subconjunto.
+
+        Returns
+        ----------
+        Boolean
+            Si se puede incrementar o no
+        """
+
+        if self.__sub_conj.count(1) == len(self.__sub_conj):
+            return True
+        else:
+            False
+
+
+
+    def inc_sub_conj(self):
+        """Permite incrementar un vector de 0 y 1 como una suma binaria.
+        
+        Returns
+        ----------
+        List or None
+            Subconjunto incrementado o None si no se puede incrementar
+        """
+
+        if self.is_overflow():
+            return None
+        else:
+            j = len(self.__sub_conj) - 1
+
+            while self.__sub_conj[j] == 1:
+                self.__sub_conj[j] = 0
+                j -= 1
+            
+            self.__sub_conj[j] = 1
+
+            return self.__sub_conj
+
+
 
     def inc_dictionary(self):
         """Incrementa el diccionario para poder probar los distintos valores de
@@ -36,29 +79,13 @@ class Sat:
             o si hubo desbordamiento (False)
         """
 
-        size = len(self.__var_list)
-
-        carry = 0
-        inc = '1'.zfill(size)
-
-        size -= 1
-
-        for var in self.__dictionary:
-
-            r = carry
-            r += 1 if self.__dictionary[var] == 1 else 0
-            r += 1 if inc[size] == '1' else 0
-
-            self.__dictionary[var] = 1 if r % 2 == 1 else 0
-
-            carry = 0 if r < 2 else 1
-
-            size -= 1
-
-        if carry != 0:
+        if self.inc_sub_conj():
+            for index, key in enumerate(list(self.__dictionary.keys())):
+                self.__dictionary[key] = self.__sub_conj[index]
+            
+            return True
+        else:
             return False
-
-        return True
 
 
 
@@ -93,7 +120,6 @@ class Sat:
         self.list_to_dictionary(var_names)
 
         while True:
-
             dictionary = self.__dictionary.copy()
             eval_expression = eval(expression, dictionary)
 
@@ -101,11 +127,9 @@ class Sat:
                 print('Evaluating = {}'.format(self.__dictionary))
 
             if eval_expression != 0:
-
                 self.__all_solutions.append(self.__dictionary.copy())
 
             if not self.inc_dictionary():
-
                 end = time.clock() - start
 
                 return self.__all_solutions, end

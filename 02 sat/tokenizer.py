@@ -4,7 +4,6 @@ import re
 class Tokenizer:
 
     def __init__(self, expression):
-
         self.__expression = expression
         self.__var_names = []
         self.__token_types = {
@@ -29,21 +28,15 @@ class Tokenizer:
 
             if t == 'and':
                 self.__token_types['and'] += 1
-
             elif t == 'or':
                 self.__token_types['or'] += 1
-
             elif t == 'not':
                 self.__token_types['not'] += 1
-
             elif t == '(':
                 self.__token_types['('] += 1
-
             elif t == ')':
                 self.__token_types[')'] += 1
-
             else:
-
                 if re.search('^[a-zA-Z0-9_]+$', t):
 
                     self.__token_types['var'] += 1

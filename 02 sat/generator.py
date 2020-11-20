@@ -4,11 +4,11 @@ import random
 class Generator:
 
     def __init__(self, clause_count: int, literals_per_clause: int, variable_count: int, var_name: str):
-
         self.clause_count = clause_count
         self.lit_clause = literals_per_clause
         self.var_count = variable_count
         self.var_name = var_name
+
 
     def generate(self):
 
@@ -16,18 +16,15 @@ class Generator:
 
             sat = ''
             global_val = []
-
             is_valid_expression = False
 
             while not is_valid_expression:
-
                 for i in range(self.clause_count):
 
                     sat += '('
                     var_list = []
 
                     for j in range(self.lit_clause):
-
                         var_to_add = self.generate_random_variable()
 
                         while var_to_add in var_list:
@@ -55,6 +52,7 @@ class Generator:
 
         else:
             raise RuntimeError('literals_per_clause * clause_count must be >= variable_count')
+
 
     def generate_random_variable(self):
 

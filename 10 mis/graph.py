@@ -4,7 +4,6 @@ import pprint
 class Graph:
 
     def __init__(self, edges_list: list):
-
         self.__graph = dict()
         self.edges_to_graph(edges_list)
     
@@ -20,7 +19,6 @@ class Graph:
         """
 
         for node1, node2 in edges:
-
             self.add_conection(node1, node2)
         
         self.remove_duplicates()
@@ -38,6 +36,7 @@ class Graph:
         node1 : Int
             Nodo de llegada
         """
+
         if node2:
             self.__graph.setdefault(node1, []).append(node2)
             self.__graph.setdefault(node2, []).append(node1)
@@ -51,7 +50,6 @@ class Graph:
         """
 
         for node, conections in self.__graph.items():
-
             self.__graph[node] = list(set(conections))
     
 
@@ -68,7 +66,6 @@ class Graph:
         conections = self.__graph[node]
 
         for node1 in conections:
-
             self.__graph.pop(node1, None)
         
         self.__graph.pop(node)
@@ -80,5 +77,4 @@ class Graph:
         """
 
         pretty_print = pprint.PrettyPrinter()
-
         pretty_print.pprint(self.__graph)
