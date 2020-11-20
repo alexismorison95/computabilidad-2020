@@ -1,7 +1,7 @@
-from tokenizer import Tokenizer
-from sat import Sat
-from generator import Generator
-#from tools.my_tools import save_result
+from tools.tokenizer import Tokenizer
+from algorithms.sat import Sat
+from tools.generator import Generator
+
 
 if __name__ == "__main__":
 

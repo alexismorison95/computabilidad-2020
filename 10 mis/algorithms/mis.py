@@ -1,10 +1,12 @@
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from graph import Graph
 import copy
 import time
 import random
+
+from tools.graph import Graph
+
 
 
 class Mis:

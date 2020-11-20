@@ -17,7 +17,7 @@
 
     ```python
     sat = Sat()
-    sat.sat_algorithm(expression, var_names)
+    sat.sat_algorithm(expression, var_names, verbose=False)
     ```
 
 

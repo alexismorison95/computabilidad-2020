@@ -35,6 +35,16 @@
     mis.set_edge_list(my_edge_list)
     ```
 
+* ### Opcion 4: Crear una matriz de incidencia aleatoria con un porcentaje de conexion entre nodos.
+    > Opcion ideal para grafos con gran cantidad de nodos.
+
+    ```python
+    porcentaje = 0.2
+    cant_vertices = 7
+
+    matrix = mis.random_matrix_with_porc(cant_vertices, porcentaje)
+    ```
+
 * Mostrar grafo
 
     ```python
@@ -44,13 +54,13 @@
 * Calcular el conjunto independiente maximo
 
     ```python
-    mis.maximum_independent_set(verbose=True)
+    mis_result = mis.maximum_independent_set(verbose=True)
     ```
 
 * Graficar grafo con mis
 
     ```python
-    mis.plot_graph(whit_mis=True)
+    mis.plot_graph(mis_result)
     ```
 
 

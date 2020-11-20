@@ -1,4 +1,4 @@
-from mis import Mis
+from algorithms.mis import Mis
 import numpy as np
 
 
