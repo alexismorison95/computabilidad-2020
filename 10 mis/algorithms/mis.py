@@ -242,8 +242,8 @@ class Mis:
 
 
 
-    def maximum_independent_set(self, verbose: bool):
-        """Algoritmo que calcula el conjunto independiente maximo.
+    def maximum_independent_set_optimal(self, verbose: bool):
+        """Algoritmo que calcula el conjunto independiente maximo. Complejidad = 2^n
 
         Parameters
         ----------
@@ -284,3 +284,34 @@ class Mis:
         end = time.clock() - start
         
         return self.mis_list, end
+    
+
+
+    def maximum_independent_set_heuristic(self, verbose: bool):
+        
+        start = time.clock()
+
+        if not verbose:
+                print('Evaluating all subset...')
+        
+        g: Graph = copy.deepcopy(self.graph)
+        mis_result = []
+        cardinality = g.minimum_degree()
+
+        while g.is_not_empty():
+
+            node = cardinality.pop(0)
+
+            if verbose:
+                print('Evaluating node = {}, cardinality = {}'.format(node[0], node[1]))
+
+            try:
+                g.remove_neighbours(node[0])
+                mis_result.append(node[0])
+            except:
+                pass
+        
+        end = time.clock() - start
+        
+        return {node for node in mis_result}, end
+

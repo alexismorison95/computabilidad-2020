@@ -71,6 +71,26 @@ class Graph:
         self.__graph.pop(node)
 
 
+    
+    def is_not_empty(self):
+
+        return bool(self.__graph)
+    
+
+
+    def minimum_degree(self):
+
+        degrees = []
+
+        for node, conections in self.__graph.items():
+            degrees.append((node, len(conections)))
+        
+        degrees.sort(key=lambda x: x[1])
+
+        return degrees
+
+
+
 
     def show_graph(self):
         """Permite representar el grafo para verlo por consola.
