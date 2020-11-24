@@ -3,9 +3,10 @@ import re
 
 class Tokenizer:
 
-    def __init__(self, expression):
+    def __init__(self, expression=''):
         self.__expression = expression
         self.__var_names = []
+        self.var_ocurrencias = dict()
         self.__token_types = {
             'and': 0,
             'or': 0,
@@ -41,9 +42,42 @@ class Tokenizer:
 
                     self.__token_types['var'] += 1
 
+                    self.var_ocurrencias.setdefault(t, 0)
+                    self.var_ocurrencias[t] += 1
+
                     if t not in self.__var_names:
                         self.__var_names.append(t)
 
         self.__var_names.sort()
 
         return self.__token_types, self.__var_names
+
+
+
+    def tokenize_clause(self, clause: str):
+
+        var_list = []
+        tokens = clause.split()
+
+        for t in tokens:
+            if t != 'or' and t != 'not':
+                var_list.append(t)
+        
+        return var_list
+
+
+
+    def get_clauses(self):
+
+        reg = re.compile(r'\(|\)')
+
+        tokens = reg.split(self.__expression)
+        tokens = [t.strip() for t in tokens if t.strip() != '']
+
+        clauses = []
+
+        for t in tokens:
+            if t != 'and':
+                clauses.append(t)
+        
+        return clauses

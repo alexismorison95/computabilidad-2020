@@ -1,1 +1,0 @@
-from networkx.algorithms.approximation import independent_set
