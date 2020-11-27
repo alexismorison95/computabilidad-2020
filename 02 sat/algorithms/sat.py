@@ -4,6 +4,7 @@ import time
 class Sat:
 
     def __init__(self):
+        
         self.__dictionary = dict()
         self.__sub_conj = None
         self.__var_list = []

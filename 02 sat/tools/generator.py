@@ -1,4 +1,6 @@
 import random
+import numpy as np
+import random
 
 
 class Generator:
@@ -52,6 +54,7 @@ class Generator:
 
         else:
             raise RuntimeError('literals_per_clause * clause_count must be >= variable_count')
+
 
 
     def generate_random_variable(self):

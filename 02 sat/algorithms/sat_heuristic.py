@@ -5,6 +5,7 @@ from tools.tokenizer import Tokenizer
 class Sat:
 
     def __init__(self, var_list: list, clauses: list, individuals: int, mutation_p: float, crossover_p: float, generations: int):
+
         self.__var_list = var_list
         self.__clauses_list = clauses
         self.__solutions = []
@@ -31,7 +32,7 @@ class Sat:
             dictionary[values[0]] = values[1]
         
         return dictionary
-    
+
 
 
     def fitness(self, genome: list):
@@ -41,13 +42,11 @@ class Sat:
 
         for clause in self.__clauses_list:
 
-            #print(self.__tokenizer.tokenize_clause(clause))
-
             if eval(clause, dictionary.copy()) != 0:
                 clauses_sat += 1
         
         return len(self.__clauses_list) - clauses_sat
-    
+
 
 
     def crossover(self, mom: list, dad: list):
@@ -56,7 +55,7 @@ class Sat:
 
         for i in range(len(mom)):
 
-            if random.sample([True, False], 1):
+            if random.sample([True, False], 1)[0]:
                 child1.append(mom[i])
                 child2.append(dad[i])
             else:
@@ -180,7 +179,3 @@ class Sat:
             results.append(self.list_to_dictionary(individual))
 
         return results, end
-
-
-
-
