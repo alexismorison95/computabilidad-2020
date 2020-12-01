@@ -54,7 +54,7 @@
 * Calcular el conjunto independiente maximo
 
     ```python
-    mis_result = mis.maximum_independent_set(verbose=True)
+    mis_result, time = mis.maximum_independent_set(verbose=True)
     ```
 
 * Graficar grafo con mis

@@ -12,6 +12,13 @@ from tools.graph import Graph
 class Mis:
 
     def __init__(self):
+        """Clase que permite obtener el Maximum Independet Set de un grafo.
+        Tambien posee toda la funcionalidad necesaria para ejecutar los algoritmos.
+        
+        Returns
+        ----------
+        Mis Object
+        """
         self.__nodes = 0
         self.__matrix = None
         self.__edge_list = []
@@ -249,6 +256,14 @@ class Mis:
         ----------
         verbose : Boolean
             Si True, imprime un reporte de las operaciones
+        
+        Returns
+        ----------
+        mis_list: Set
+            Conjunto MIS
+
+        end: Float
+            Tiempo de ejecucion del algoritmo
         """
 
         sub_conj = [0]*self.__nodes
@@ -288,6 +303,21 @@ class Mis:
 
 
     def maximum_independent_set_heuristic(self, verbose: bool):
+        """Algoritmo que calcula el conjunto independiente maximo heuristico, complejidad n
+
+        Parameters
+        ----------
+        verbose : Boolean
+            Si True, imprime un reporte de las operaciones
+        
+        Returns
+        ----------
+        mis: Set
+            Conjunto MIS
+
+        end: Float
+            Tiempo de ejecucion del algoritmo
+        """
         
         start = time.clock()
 

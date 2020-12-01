@@ -4,6 +4,17 @@ import pprint
 class Graph:
 
     def __init__(self, edges_list: list):
+        """Clase que permite generar grafos. Mas las funciones necesarias para trabajar con los mismos.
+
+        Parameters
+        ----------
+        edges_list : List
+            Lista de conexiones
+        
+        Returns
+        ----------
+        Graph Object
+        """
         self.__graph = dict()
         self.edges_to_graph(edges_list)
     
@@ -73,12 +84,26 @@ class Graph:
 
     
     def is_not_empty(self):
+        """Verifica si el grafo esta vacio.
+
+        Returns
+        ----------
+        is_empty : Bool
+            True si el grafo esta vacio, False de lo contrario
+        """
 
         return bool(self.__graph)
     
 
 
     def minimum_degree(self):
+        """Genera una lista de los nodos del grafo ordenados por grado, osea menor cantidad de aristas.
+
+        Returns
+        ----------
+        degrees : List
+            Lista de nodos ordenados por grado. [(nodo, grado)]
+        """
 
         degrees = []
 

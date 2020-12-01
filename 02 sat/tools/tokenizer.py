@@ -19,6 +19,16 @@ class Tokenizer:
 
 
     def tokenize(self):
+        """Permite Tokenizar una expresion.
+        
+        Returns
+        ----------
+        token_types : Dict
+            Diccionario que cuenta los tipos de tokens en la expresion
+
+        var_names : List
+            Lista que contiene los nombres de las variables de la expresion
+        """
 
         reg = re.compile(r'(\band\b|\bor\b|\bnot\b|\(|\))')
 
@@ -55,6 +65,19 @@ class Tokenizer:
 
 
     def tokenize_clause(self, clause: str):
+        """Permite Tokenizar una clausula.
+
+        Parameters
+        ----------
+        clause : str
+            clausula de la cual se quiere obtener las variables
+        
+        Returns
+        ----------
+
+        var_list : List
+            Lista que contiene los nombres de las variables de la clausula
+        """
 
         var_list = []
         tokens = clause.split()
@@ -68,6 +91,14 @@ class Tokenizer:
 
 
     def get_clauses(self):
+        """Permite obtener todas las clausulas de una expresion.
+        
+        Returns
+        ----------
+
+        clauses : List
+            Lista que contiene las clausulas
+        """
 
         reg = re.compile(r'\(|\)')
 
